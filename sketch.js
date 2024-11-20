@@ -23,6 +23,8 @@ https://developers.google.com/mediapipe/solutions/vision/hand_landmarker
 let capture; // our webcam
 let captureEvent; // callback when webcam is ready
 
+const Ligacoes = [[4,3],[3,2],[2,1],[1,0],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[17,0]]
+
 
 /* - - Setup - - */
 function setup() {
@@ -41,7 +43,8 @@ function setup() {
 
 /* - - Draw - - */
 function draw() {
-
+  stroke(10)
+  line(0,0,1000,1000)
   background(0);
 
 
@@ -57,10 +60,11 @@ function draw() {
   /* TRACKING */
   if (mediaPipe.landmarks[0]) { // is hand tracking ready?
 
+    let Points = []
     for(let i = 0; i<20;i++){
       let indexX = map(mediaPipe.landmarks[0][i].x, 1, 0, 0, capture.scaledWidth);
       let indexY = map(mediaPipe.landmarks[0][i].y, 0, 1, 0, capture.scaledHeight);
-  
+      Points[i] = [indexX,indexY]
       // draw index finger
       push();
       centerOurStuff();
@@ -71,8 +75,17 @@ function draw() {
       pop();
 
     }
-
-    // index finger
+    for(let i=0;i<Ligacoes.length;i++){
+      let p1 = Ligacoes[i][0]
+      let p2 = Ligacoes[i][1]
+      if(Points[p1] && Points[p2]){
+        push();
+        centerOurStuff();
+        fill('white');
+        line(Points[p1][0],Points[p1][1],Points[p2][0],Points[p2][1])
+        pop();
+      }
+    }
   }
 }
 
