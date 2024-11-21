@@ -66,15 +66,16 @@ function draw() {
       pop();
 
     }
-    //console.log("Indicador Meio"+String(DistanceBtPoints(Points[8],Points[11]))) //<80
-    //console.log("Meio Anelar"+String(DistanceBtPoints(Points[12],Points[16]))) // >80
-    //console.log("Anelar Mindinho"+String(DistanceBtPoints(Points[15],Points[20]))) //<80
-    //console.log("Dedão mão"+String(DistanceBtPoints(Points[3],Points[5]))) //>100
+    textSize(10);
+    text("Indicador Meio: "+String(DistanceBtPoints(Points[8],Points[11])), 10, windowHeight-10)
+    text("Meio Anelar: "+String(DistanceBtPoints(Points[12],Points[16])), 10, windowHeight-30)
+    text("Anelar Mindinho: "+String(DistanceBtPoints(Points[15],Points[20])), 10, windowHeight-50) //<80
+    text("Dedão mão: "+String(DistanceBtPoints(Points[3],Points[5])), 10, windowHeight-70) //>100
     if((DistanceBtPoints(Points[8],Points[11])<80)&&(DistanceBtPoints(Points[15],Points[20])<80)){ //Dedos Juntos
       if((DistanceBtPoints(Points[12],Points[16])>80)&&(DistanceBtPoints(Points[3],Points[5])>100)){
         if(Points[4][0]<Points[17][0]){
           textSize(40);
-          text("Vida Longa e Prospera", Points[0][0]-40, Points[0][1]-40)
+          text("Vida Longa e Prospera", Points[0][0]-50, Points[0][1]-5)
         }
       }
     }
