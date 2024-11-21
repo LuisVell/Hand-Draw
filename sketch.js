@@ -5,12 +5,6 @@
 Which tracking points can I use?
 https://developers.google.com/static/mediapipe/images/solutions/hand-landmarks.png
 
-We have a total of 21 points per hand:
-0 = wrist
-4 = thumb tip
-8 = index finger tip
-20 = pinky tip
-
 Full documentation
 https://developers.google.com/mediapipe/solutions/vision/hand_landmarker
 
@@ -23,7 +17,7 @@ https://developers.google.com/mediapipe/solutions/vision/hand_landmarker
 let capture; // our webcam
 let captureEvent; // callback when webcam is ready
 
-const Ligacoes = [[4,3],[3,2],[2,1],[1,0],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[17,0]]
+const Ligacoes = [[4,3],[3,2],[2,1],[1,0],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[17,0]] //Quais pontos devem se ligar a quais
 
 
 /* - - Setup - - */
@@ -35,7 +29,7 @@ function setup() {
   // styling
   noStroke();
   textAlign(LEFT, CENTER);
-  textSize(20);
+  textSize(40);
   fill('white');
 
 }
@@ -43,8 +37,6 @@ function setup() {
 
 /* - - Draw - - */
 function draw() {
-  stroke(10)
-  line(0,0,1000,1000)
   background(0);
 
 
@@ -58,30 +50,29 @@ function draw() {
 
 
   /* TRACKING */
-  if (mediaPipe.landmarks[0]) { // is hand tracking ready?
-
+  if (mediaPipe.landmarks[0]) { // Mão foi detectada?
     let Points = []
-    for(let i = 0; i<20;i++){
+    for(let i = 0; i<21;i++){ //Segue os pontos de cada dobra dos dedos seguindo a imagem: https://developers.google.com/static/mediapipe/images/solutions/hand-landmarks.png
       let indexX = map(mediaPipe.landmarks[0][i].x, 1, 0, 0, capture.scaledWidth);
       let indexY = map(mediaPipe.landmarks[0][i].y, 0, 1, 0, capture.scaledHeight);
-      Points[i] = [indexX,indexY]
-      // draw index finger
+      Points[i] = [indexX,indexY] //Salva as coordenadas para desenhar as linhas posteriormente
       push();
       centerOurStuff();
       fill('white');
-      ellipse(indexX, indexY, 10, 10);
+      ellipse(indexX, indexY, 20, 20);
       fill('blue');
       text(String(i), indexX + 30, indexY);
       pop();
 
     }
-    for(let i=0;i<Ligacoes.length;i++){
+    for(let i=0;i<Ligacoes.length;i++){ //Desenha as linhas
       let p1 = Ligacoes[i][0]
       let p2 = Ligacoes[i][1]
       if(Points[p1] && Points[p2]){
         push();
         centerOurStuff();
-        fill('white');
+        stroke(0)
+        strokeWeight(10)
         line(Points[p1][0],Points[p1][1],Points[p2][0],Points[p2][1])
         pop();
       }
