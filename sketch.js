@@ -61,9 +61,22 @@ function draw() {
       fill('white');
       ellipse(indexX, indexY, 20, 20);
       fill('blue');
+      textSize(40);
       text(String(i), indexX + 30, indexY);
       pop();
 
+    }
+    //console.log("Indicador Meio"+String(DistanceBtPoints(Points[8],Points[11]))) //<80
+    //console.log("Meio Anelar"+String(DistanceBtPoints(Points[12],Points[16]))) // >80
+    //console.log("Anelar Mindinho"+String(DistanceBtPoints(Points[15],Points[20]))) //<80
+    //console.log("Dedão mão"+String(DistanceBtPoints(Points[3],Points[5]))) //>100
+    if((DistanceBtPoints(Points[8],Points[11])<80)&&(DistanceBtPoints(Points[15],Points[20])<80)){ //Dedos Juntos
+      if((DistanceBtPoints(Points[12],Points[16])>80)&&(DistanceBtPoints(Points[3],Points[5])>100)){
+        if(Points[4][0]<Points[17][0]){
+          textSize(40);
+          text("Vida Longa e Prospera", Points[0][0]-40, Points[0][1]-40)
+        }
+      }
     }
     for(let i=0;i<Ligacoes.length;i++){ //Desenha as linhas
       let p1 = Ligacoes[i][0]
@@ -80,6 +93,13 @@ function draw() {
   }
 }
 
+function DistanceBtPoints(p1, p2){
+  let x1 = p1[0]
+  let x2 = p2[0]
+  let y1 = p1[1]
+  let y2 = p2[1]
+  return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+}
 
 /* - - Helper functions - - */
 
